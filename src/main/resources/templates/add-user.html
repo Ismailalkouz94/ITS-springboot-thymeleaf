@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" data-layout-decorate="~{fragments/layout}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<div class="right_col" role="main" data-layout-fragment="content">
+    <div >
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Add new User</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-expanded="false"><i
+                                class="fa fa-wrench"></i></a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Settings 1</a>
+                            <a class="dropdown-item" href="#">Settings 2</a>
+                        </div>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br/>
+                <div class="col-md-8">
+                    <form class="form-horizontal form-label-left" action="#" id="addUser"
+                          th:action="${action} == 'edit' ? @{/users/edit} : @{/users/save}"
+                          th:object="${user}"
+                          method="post">
+
+                        <div class="form-group row ">
+                            <div class="col-md-9 col-sm-9 ">
+                                <input hidden th:field="*{id}">
+                            </div>
+                        </div>
+
+                        <div class="form-group row ">
+                            <label class="control-label col-md-3 col-sm-3 ">First Name</label>
+                            <div class="col-md-9 col-sm-9 ">
+                                <input type="text" th:field="*{firstName}" class="form-control" required="required"
+                                       placeholder="First Name">
+                            </div>
+                        </div>
+
+                        <div class="form-group row ">
+                            <label class="control-label col-md-3 col-sm-3 ">Last Name</label>
+                            <div class="col-md-9 col-sm-9 ">
+                                <input type="text" th:field="*{lastName}" class="form-control" required="required"
+                                       placeholder="Last Name">
+                            </div>
+                        </div>
+
+                        <div class="form-group row ">
+                            <label class="control-label col-md-3 col-sm-3 ">Email</label>
+                            <div class="col-md-9 col-sm-9 ">
+                                <input class="form-control" th:field="*{email}" required="required" type="email"
+                                       placeholder="Email">
+                                <label th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                                       class="validation-message red"></label>
+                            </div>
+                        </div>
+
+                        <div class="form-group row ">
+                            <label class="control-label col-md-3 col-sm-3 ">User Name</label>
+                            <div class="col-md-9 col-sm-9 ">
+                                <input type="text" th:field="*{userName}" class="form-control" required="required"
+                                       placeholder="User Name">
+                                <label th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"
+                                       class="validation-message red"></label>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row" th:if="${action} != 'edit'">
+                            <label class="control-label col-md-3 col-sm-3 ">Password</label>
+                            <div class="col-md-9 col-sm-9 ">
+                                <input type="password" th:field="*{password}" class="form-control" required="required"
+                                       value="Password">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="control-label col-md-3 col-sm-3 ">Role</label>
+                            <div class="col-md-9 col-sm-9 ">
+                                <select class="form-control" th:field="*{role.id}">
+                                    <option value="">Choose option</option>
+                                    <option th:each="role : ${roles}" th:value="${role.id}"
+                                            th:text="${role.name}"></option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="control-label col-md-3 col-sm-3 ">Position</label>
+                            <div class="col-md-9 col-sm-9 ">
+                                <select class="form-control" th:field="*{position.id}">
+                                    <option value="">Choose option</option>
+                                    <option th:each="pos : ${positions}" th:value="${pos.id}"
+                                            th:text="${pos.key} +' - '+ ${pos.description}"></option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row" th:if="${action} == 'edit'">
+                            <label class="control-label col-md-3 col-sm-3 ">Status</label>
+                            <div class="col-md-9 col-sm-9 ">
+                                <select class="form-control" th:field="*{active}">
+                                    <option value="0">Not Active</option>
+                                    <option value="1">Active</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <!--                        <h2><span class="text-success" th:utext="${successMessage}"></span></h2>-->
+
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-9 col-sm-9  offset-md-3">
+                                <ul class="nav navbar-right">
+                                    <a data-th-href="@{/users}" class="btn btn-primary">Cancel</a>
+                                    <button type="reset" class="btn btn-primary">Reset</button>
+                                    <button type="submit" class="btn btn-success">Submit</button>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <span></span>
+<!--                        <span th:onsubmit="${isSuccess} == true ? 'toastr.success('+${successMessage}+')' : 'toastr.error('+${errorMessage}+')'"></span>-->
+
+<!--                        <a class="btn btn-success"-->
+<!--                           th:onclick="${isSuccess}==true ? 'toastr.success('+${successMessage}+')' : 'toastr.error('+${errorMessage}+')'">Success-->
+<!--                            message</a>-->
+<!--                        &lt;!&ndash; Error message &ndash;&gt;-->
+<!--                        <a class="btn btn-danger" onclick="toastr.error('Hi! I am error message.');">Error message</a>-->
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+</script>
+</body>
+</html>
