@@ -1,0 +1,15 @@
+<html lang="en" data-layout-decorate="~{fragments/layout}"
+      xmlns:th="http://www.thymeleaf.org">
+<div id="sidebar-menu" class="main_menu_side hidden-print main_menu" data-th-fragment="sidebar-menu">
+    <div class="menu_section">
+
+        <ul class="nav side-menu" style="margin-top: 10rem; margin-bottom: 1rem;">
+                <li><a data-th-href="@{/home}"><i class="fa fa-home"></i>Home</a></li>
+                <li><a data-th-href="@{/issues}"><i class="fa fa-bug"></i>Issues</a></li>
+                <li th:if="${session.currentUser.role.id =='1'}"><a data-th-href="@{/users}" ><i class="fa fa-users"></i>Users</a></li>
+
+            </ul>
+
+    </div>
+
+</div>
