@@ -89,20 +89,4 @@ public class UserController {
         return "redirect:/users";
     }
 
-    @PostMapping("/changePassword")
-    public ResponseEntity<String> changePassword(@Valid ChangePasswordDTO changePassword, HttpSession session) {
-        try {
-            User user = (User) session.getAttribute(Constants.CURRENT_USER);
-            changePassword.setUserId(user.getId());
-            userService.changePassword(changePassword);
-        } catch (IssueTrackingException e) {
-            return ResponseEntity.badRequest()
-                    .body(messageSource.getMessage(
-                            e.getMessage(), null, Locale.US));
-
-        }
-
-        return ResponseEntity.ok(messageSource.getMessage("change.password.success", null, Locale.US));
-    }
-
 }
