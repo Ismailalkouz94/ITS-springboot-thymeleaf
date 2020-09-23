@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Add issue</title>
 </head>
-<body>
+<body th:onload="${isSuccess} ? 'javascript:toastSuccess(\''+${successMessage}+'\');'">
 <!-- page content -->
 <div class="right_col" role="main" data-layout-fragment="content" >
     <div>
@@ -115,9 +115,6 @@
                             </div>
                         </div>
 
-
-
-                        <h2><span class="text-success" th:utext="${successMessage}"></span></h2>
 
                         <div class="ln_solid"></div>
                         <div class="form-group" th:hidden="${action} == 'view'">

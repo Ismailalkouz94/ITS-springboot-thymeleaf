@@ -6,6 +6,7 @@ import com.example.its.service.IssuesService;
 import com.example.its.service.UserService;
 import com.example.its.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.Locale;
 
 @Controller
 @RequestMapping("/issues")
@@ -24,6 +26,9 @@ public class IssueController {
     private UserService userService;
     @Autowired
     private IssuesService issuesService;
+    @Autowired
+    private MessageSource messageSource;
+
 
     @PostMapping("/save")
     public ModelAndView save(@Valid Issue issue, BindingResult bindingResult, HttpSession session) {
@@ -40,7 +45,8 @@ public class IssueController {
         } else {
             issue.setId(null);
             issuesService.add(issue);
-            modelAndView.addObject("successMessage", "Issue has been Created successfully");
+            modelAndView.addObject("isSuccess", true);
+            modelAndView.addObject("successMessage", messageSource.getMessage("ISSUE_CREATED_SUCCESSFULLY", null, Locale.US));
             modelAndView.addObject("issue", new Issue());
             modelAndView.addObject("type", issuesService.findAllTypes());
             modelAndView.addObject("status", issuesService.findAllStatus());
