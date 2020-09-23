@@ -1,6 +1,0 @@
-2020-09-16T13:52:46,047 INFO  [Sample][main|IssueTrackingSystemApplication] 50 logStarting Starting IssueTrackingSystemApplication on Fact-Echannel-IQ with PID 1316 (C:\Users\Ialkouz\Desktop\projects\ITS-springboot-thymeleaf\target\classes started by ialkouz in C:\Users\Ialkouz\Desktop\projects\ITS-springboot-thymeleaf)
-2020-09-16T13:52:46,055 INFO  [Sample][main|IssueTrackingSystemApplication] 680 logStartupProfileInfo No active profile set, falling back to default profiles: default
-2020-09-16T13:52:50,555 INFO  [Sample][main|IssueTrackingSystemApplication] 59 logStarted Started IssueTrackingSystemApplication in 5.109 seconds (JVM running for 8.439)
-2020-09-16T14:34:42,305 INFO  [Sample][main|IssueTrackingSystemApplication] 50 logStarting Starting IssueTrackingSystemApplication on Fact-Echannel-IQ with PID 7428 (C:\Users\Ialkouz\Desktop\projects\ITS-springboot-thymeleaf\target\classes started by ialkouz in C:\Users\Ialkouz\Desktop\projects\ITS-springboot-thymeleaf)
-2020-09-16T14:34:42,311 INFO  [Sample][main|IssueTrackingSystemApplication] 680 logStartupProfileInfo No active profile set, falling back to default profiles: default
-2020-09-16T14:34:46,554 INFO  [Sample][main|IssueTrackingSystemApplication] 59 logStarted Started IssueTrackingSystemApplication in 4.877 seconds (JVM running for 6.29)
