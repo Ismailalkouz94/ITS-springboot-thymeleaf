@@ -1,6 +1,6 @@
 $("#submitChangePasswordId").click(function (event) {
     event.preventDefault();
-    $.post("/users/changePassword",
+    $.post("/changePassword",
         {
             'userId': $('#userId').val(),
             'oldPassword': $('#oldPassword').val(),

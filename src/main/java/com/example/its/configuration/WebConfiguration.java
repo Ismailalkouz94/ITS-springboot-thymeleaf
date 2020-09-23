@@ -22,11 +22,6 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 @Configuration
 public class WebConfiguration implements WebMvcConfigurer {
 
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
 
     @Bean("messageSource")
     public MessageSource messageSource() {
