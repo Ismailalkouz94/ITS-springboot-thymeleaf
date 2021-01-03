@@ -24,6 +24,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -63,7 +65,7 @@ public class IssuesServiceImpl implements IssuesService {
 //        issue=issuesRepository.save(issue);
 //        Map map = prepareIssueData(issue);
 //        jmsTemplate.convertAndSend(queue, map);
-        return issue;
+        return issuesRepository.save(issue);
     }
 
     private Map prepareIssueData(Issue issue) {
@@ -81,8 +83,10 @@ public class IssuesServiceImpl implements IssuesService {
         checkAndCreateDir(uploadDirectory);
         StringBuilder fileNames = new StringBuilder();
         for (MultipartFile file : issue.getAttachmentFiles()) {
-            Path fileNameAndPath = Paths.get(uploadDirectory, file.getOriginalFilename());
-            fileNames.append(file.getOriginalFilename() + ",,");
+            String[] fileNameArr=file.getOriginalFilename().split("[.]");
+            String fileName = fileNameArr[0] + " " + getDateTime() + "." + fileNameArr[1];
+            Path fileNameAndPath = Paths.get(uploadDirectory, fileName);
+            fileNames.append(fileName + ",,");
             issue.setAttachmentPath(fileNames.toString());
             try {
                 Files.write(fileNameAndPath, file.getBytes());
@@ -101,11 +105,14 @@ public class IssuesServiceImpl implements IssuesService {
 
     @Override
     public Issue edit(Issue issue) {
-        issue.setOwner(userRepository.findById(issue.getOwner().getId()).get());
-        issue.setAssignTo(userRepository.findById(issue.getAssignTo().getId()).get());
-        issue.setType(typeRepository.findById(issue.getType().getId()).get());
-        issue.setStatus(statusRepository.findById(issue.getStatus().getId()).get());
-        return issuesRepository.save(issue);
+        if (!issuesRepository.existsById(issue.getId())) {
+            throw new IssueTrackingException("ISSUE_NOT_FOUND");
+        }
+        Issue orignalIssue = issuesRepository.findById(issue.getId()).get();
+        orignalIssue.setAssignTo(userRepository.findById(issue.getAssignTo().getId()).get());
+        orignalIssue.setType(typeRepository.findById(issue.getType().getId()).get());
+        orignalIssue.setStatus(statusRepository.findById(issue.getStatus().getId()).get());
+        return issuesRepository.save(orignalIssue);
     }
 
     @Override
@@ -213,5 +220,11 @@ public class IssuesServiceImpl implements IssuesService {
             e.printStackTrace();
         }
         return response;
+    }
+
+    private  String  getDateTime(){
+        DateTimeFormatter formatter =DateTimeFormatter.ofPattern("dd-MM-yyyy HH-mm");
+        LocalDateTime dateTime= LocalDateTime.now();
+        return formatter.format(dateTime);
     }
 }

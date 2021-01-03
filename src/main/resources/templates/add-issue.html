@@ -88,7 +88,7 @@
                                 <select class="form-control" th:field="*{assignTo.id}" th:disabled="${action} == 'view'">
                                     <option value="">Choose option</option>
                                     <option th:each="user : ${assignTo}" th:value="${user.id}"
-                                            th:text="${user.firstName +' '+ user.lastName}"></option>
+                                            th:text="${ '['+user.userName+'] ' + user.firstName +' '+ user.lastName}"></option>
                                 </select>
                             </div>
                         </div>

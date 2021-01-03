@@ -29,6 +29,9 @@ public class IssueTrackingSystemApplication extends SpringBootServletInitializer
 	@Autowired
 	PositionRepository positionRepository;
 
+	@Autowired
+	IssueRepository issueRepository;
+
 	private static final Logger logger = LogManager.getLogger(IssueTrackingSystemApplication.class);
 
 	public static void main(String[] args) {
@@ -82,6 +85,11 @@ public class IssueTrackingSystemApplication extends SpringBootServletInitializer
 		if (!userRepository.existsById("1")){
 			User user = new User("1", "ismail", "alkouz", "ismail@gamil.com", true, "admin", "$2a$10$zswmPMTPQx/haoyigz5z0uGCG37QjBHurv7LRMuEUnTUfVLgUXSu6", roleRepository.findById("1").get(), positionRepository.findById("1").get());
 			userRepository.save(user);
+		}
+
+		if (!issueRepository.existsById("1")){
+			Issue issue = new Issue("1","test","test",null,"",userRepository.findById("1").get(),userRepository.findById("1").get(),statusRepository.findById("1").get(),typeRepository.findById("1").get(),null,null);
+			issueRepository.save(issue);
 		}
 
 	}

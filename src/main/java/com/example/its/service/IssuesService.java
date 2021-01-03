@@ -10,15 +10,25 @@ import java.util.List;
 public interface IssuesService {
 
     Issue add(Issue issue);
+
     Issue edit(Issue issue);
+
     boolean delete(String id);
+
     List<Issue> findAll();
+
     Issue find(String id);
+
     List<Issue> findByUser(String id);
+
     List<Issue> findByAssigned(String id);
+
     List<Type> findAllTypes();
+
     List<Status> findAllStatus();
-    List<Issue> issuesFilter(String id,int filterId);
+
+    List<Issue> issuesFilter(String id, int filterId);
+
     HttpServletResponse downloadFile(String fileName, HttpServletResponse response);
 
 }
