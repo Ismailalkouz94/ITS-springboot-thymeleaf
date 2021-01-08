@@ -33,7 +33,7 @@
                 <br/>
                 <div class="col-md-8">
                     <form class="form-horizontal form-label-left" action="#" enctype="multipart/form-data"
-                          th:action="${action} == 'edit' ? @{/issues/edit} : @{/issues/save}"
+                          th:action="${action} == ${T(com.example.its.util.Constants).EDIT} ? @{/issues/edit} : @{/issues/save}"
                           th:object="${issue}"
                           method="post">
 
@@ -47,7 +47,7 @@
                             <label class="control-label col-md-3 col-sm-3 ">Title</label>
                             <div class="col-md-9 col-sm-9 ">
                                 <input type="text" th:field="*{title}" class="form-control" required="required"
-                                       placeholder="Title" th:disabled="${action} == 'view'">
+                                       placeholder="Title" th:disabled="${action} == ${T(com.example.its.util.Constants).VIEW}">
                             </div>
                         </div>
 
@@ -55,18 +55,18 @@
                             <label class="control-label col-md-3 col-sm-3 ">Description</label>
                             <div class="col-md-9 col-sm-9 ">
                                 <textarea  th:field="*{description}" class="form-control" required="required"
-                                           placeholder="Description" th:disabled="${action} == 'view'"></textarea>
+                                           placeholder="Description" th:disabled="${action} == ${T(com.example.its.util.Constants).VIEW}"></textarea>
                             </div>
                         </div>
 
-                        <div class="form-group row " th:hidden="${action} == 'view' or ${action} == 'edit'">
+                        <div class="form-group row " th:hidden="${action} == ${T(com.example.its.util.Constants).VIEW} or ${action} == ${T(com.example.its.util.Constants).EDIT}">
                             <label class="control-label col-md-3 col-sm-3 ">Attachment</label>
                             <div class="col-md-9 col-sm-9 ">
                                 <input type="file"  th:field="*{attachmentFiles}" multiple class="form-control" >
                             </div>
                         </div>
 
-                        <div class="form-group row " th:if="${action} == 'view' or ${action} == 'edit'">
+                        <div class="form-group row " th:if="${action} == ${T(com.example.its.util.Constants).VIEW} or ${action} == ${T(com.example.its.util.Constants).EDIT}">
                             <label class="control-label col-md-3 col-sm-3 ">Attachment</label>
                             <div class="col-md-9 col-sm-9 ">
                                 <a data-th-href="@{'/issues/file/'+${file}}" th:each="file :${issue.attachmentPath.split(',,')}"  th:text="${file}"
@@ -85,7 +85,7 @@
                         <div class="form-group row">
                             <label class="control-label col-md-3 col-sm-3 ">Assign To</label>
                             <div class="col-md-9 col-sm-9 ">
-                                <select class="form-control" th:field="*{assignTo.id}" th:disabled="${action} == 'view'">
+                                <select class="form-control" th:field="*{assignTo.id}" th:disabled="${action} == ${T(com.example.its.util.Constants).VIEW}">
                                     <option value="">Choose option</option>
                                     <option th:each="user : ${assignTo}" th:value="${user.id}"
                                             th:text="${ '['+user.userName+'] ' + user.firstName +' '+ user.lastName}"></option>
@@ -96,7 +96,7 @@
                         <div class="form-group row">
                             <label class="control-label col-md-3 col-sm-3 ">Type</label>
                             <div class="col-md-9 col-sm-9 ">
-                                <select class="form-control" th:field="*{type.id}" th:disabled="${action} == 'view'">
+                                <select class="form-control" th:field="*{type.id}" th:disabled="${action} == ${T(com.example.its.util.Constants).VIEW}">
                                     <option value="">Choose option</option>
                                     <option th:each="item : ${type}" th:value="${item.id}"
                                             th:text="${item.name}"></option>
@@ -104,10 +104,10 @@
                             </div>
                         </div>
 
-                        <div class="form-group row" th:if="${action} == 'edit' or ${action} == 'view'">
+                        <div class="form-group row" th:if="${action} == ${T(com.example.its.util.Constants).EDIT} or ${action} == ${T(com.example.its.util.Constants).VIEW}">
                             <label class="control-label col-md-3 col-sm-3 ">Status</label>
                             <div class="col-md-9 col-sm-9 ">
-                                <select class="form-control" th:field="*{status.id}" th:disabled="${action} == 'view'">
+                                <select class="form-control" th:field="*{status.id}" th:disabled="${action} == ${T(com.example.its.util.Constants).VIEW}">
                                     <option value="">Choose option</option>
                                     <option th:each="item : ${status}" th:value="${item.id}"
                                             th:text="${item.name}"></option>
@@ -117,7 +117,7 @@
 
 
                         <div class="ln_solid"></div>
-                        <div class="form-group" th:hidden="${action} == 'view'">
+                        <div class="form-group" th:hidden="${action} == ${T(com.example.its.util.Constants).VIEW}">
                             <div class="col-md-9 col-sm-9  offset-md-3">
                                 <ul class="nav navbar-right">
                                     <a data-th-href="@{/issues}" class="btn btn-primary">Cancel</a>
@@ -126,7 +126,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="form-group" th:hidden="${action} != 'view'">
+                        <div class="form-group" th:hidden="${action} != ${T(com.example.its.util.Constants).VIEW}">
                             <div class="col-md-9 col-sm-9  offset-md-3">
                                 <ul class="nav navbar-right">
                                     <a data-th-href="@{/issues}" class="btn btn-primary">Cancel</a>
