@@ -1,0 +1,23 @@
+version: '3.3'
+services:
+  its:
+    container_name: 'its'
+    ports:
+      - "8095:8095"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - mongoits
+    environment:
+      - "JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8000 -Xms128m -Xmx256m"
+      - "SPRING_DATASOURCE_URL=mongoits:27017/ITS"
+      - "SERVER_PORT=8095"
+      - "SPRING_DATA_MONGODB_PORT=27017"
+      - "SPRING_DATA_MONGODB_DATABASE=ITS"
+      - "SPRING_DATA_MONGODB_HOST=mongoits"
+  mongoits:
+    container_name: 'mongoits'
+    ports:
+      - "27017:27017"
+    image: mongo
